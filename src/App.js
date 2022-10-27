@@ -1,9 +1,11 @@
-import './App.css';
-import Card from './Card/Card'
+import React from 'react';
+import Navbar from './Navbar/Navbar';
+
+
 function App() {
   return (
     <>
-      <Card/>
+      <Navbar/>
     </>
   );
 }

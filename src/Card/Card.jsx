@@ -1,76 +1,93 @@
 import React, { Component } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Program from '../image/programmer.jfif'
-import Driver from '../image/taxi driver.jfif';
-import Doctor from '../image/doctor.jfif';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 
 class MediaCard extends Component {
     constructor(props) {
         super(props)
 
-        // Set initial state
-        this.state = { msg: 'Hi, There!' }
-        // Binding this keyword
-        this.handleProgram = this.handleProgram.bind(this)
-        this.handleDoc = this.handleDoc.bind(this)
-        this.handleDriv = this.handleDriv.bind(this)
+        this.state = {
+            card: [
+                {
+                    id: 1,
+                    name: 'Kamoliddin Nazrullayev',
+                    spec: 'Dirver',
+                    email: 'kamolxoja.n@gmail.com'
+                },
+                {
+                    id: 2,
+                    name: 'kamoliddin',
+                    spec: 'Dispetcher',
+                    email: 'kamolxoja.n@gmail.com'
+                },
+                {
+                    id: 3,
+                    name: 'kamoliddin',
+                    spec: 'Carrier',
+                    email: 'kamolxoja.n@gmail.com'
+                }
+            ],
+            num: 0
+        }
     }
 
-    handleProgram() {
-
-        // Changing state
-        this.setState({ msg: 'I am  programmer' })
-        this.setState({p: 'My name is Kamoliddin, I am Full Stack Developer'})
-        this.setState({img: Program})
-    }
-
-    handleDoc() {
-
-        // Changing state
-        this.setState({ msg: 'I am  doctor' })
-        this.setState({p: "My name is John Doe, I am Doctor "})
-        this.setState({img: Doctor})
-    }
-
-    handleDriv() {
-
-        // Changing state
-        this.setState({ msg: 'I am  driver' })
-        this.setState({p:'My name is Pifagor, I am Taxi Driver'})
-        this.setState({img: Driver})
-    }
-    
 
 
     render() {
         return (
             <>
-                <Card sx={{ maxWidth: 345 }}>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image={this.state.img}
-                        alt="green iguana"
-                    />
+
+                <Card sx={{ minWidth: 255 }}>
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            <p>{this.state.msg}</p>
+                        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterCenter>
+                            {this.state.card[this.state.num].spec}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            <p>{this.state.p}</p>
+                        <Typography variant="h6" sx={{ mb: 1.5 }} component="div">
+                            {this.state.card[this.state.num].name}
                         </Typography>
+                        <Typography sx={{ mb: 2 }} color="text.secondary">
+                            {this.state.card[this.state.num].email}
+                        </Typography>
+                        <Typography variant="body2">
+                            Other profiles
+                            <br />
+                        </Typography>
+
+                        <List>
+                            {this.state.card.map(e => {
+                                return (
+                                    <ListItem alignItems="flex-start" onClick={() => this.setState({ ...this.state, num: e.id - 1 })}>
+                                        <ListItemAvatar>
+                                            <Avatar />
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary={e.name + ' ' + e.surname}
+                                            secondary={
+                                                <React.Fragment>
+                                                    <Typography
+                                                        sx={{ display: 'inline' }}
+                                                        component="span"
+                                                        variant="body2"
+                                                        color="text.primary">
+                                                        {e.spec}
+                                                    </Typography>
+                                                </React.Fragment>
+                                            }
+                                        />
+                                    </ListItem>
+                                )
+                            })}
+                        </List>
+
                     </CardContent>
-                    <CardActions>
-                        <Button size="small" onClick={this.handleProgram}>Programmer</Button>
-                        <Button size="small" onClick={this.handleDoc}>Doctor</Button>
-                        <Button size="small" onClick={this.handleDriv}>Driver</Button>
-                    </CardActions>
                 </Card>
+
             </>
         )
     }
